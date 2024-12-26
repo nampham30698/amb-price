@@ -17,6 +17,7 @@ const ambPrice = {
         nhom25: 45000,
         nhom35: 75000
     },
+    denLed: 20000,
     nguon: 20000,
     dongHo: 30000,
     dieuKhien: 30000,
@@ -60,7 +61,7 @@ function onBtnTinhGiaClicked(){
     const giaNhap = getGiaInTranh(dienTich) + getGiaDen(chuVi) + giaKhung(chuVi) + dieuKhien + dongHo + congTac + quaLac + ambPrice.dongGoi;
 
     const chiPhi = ambChiPhi.ads + ambChiPhi.giamGia
-    const total = 
+    const total = giaNhap + chiPhi + giaShip(dienTich) + loiNhuan(dienTich);
 
     $('#totalPrice').text(total);
 }
@@ -77,7 +78,13 @@ const getGiaInTranh = (dienTich) => {
 }
 
 const getGiaDen = (chiVi) => {
-    return parseInt($('input[name="lightType"]:checked').val()) * chiVi;
+
+    const useLight = $('input[name="lightType"]:checked').val();
+    if(useLight == "1"){
+        return ambPrice.denLed * chiVi;
+    }
+
+    return 0;
 }
 
 const giaKhung = (chiVi) => {
@@ -90,16 +97,30 @@ const giaKhung = (chiVi) => {
 }
 
 const giaShip = (dienTich) => {
+    if(dienTich > 0.2) return 40000;
     if(dienTich > 0.3) return 45000;
     if(dienTich > 0.5) return 75000;
     if(dienTich > 0.7) return 85000;
     if(dienTich > 0.9) return 125000;
     if(dienTich > 1.25) return 150000;
+    if(dienTich > 1.5) return 170000;
     if(dienTich > 2) return 200000;
     if(dienTich > 2.5) return 250000;
 }
 
 const loiNhuan = (dienTich) => {
+
+    if(dienTich > 0.2) return 60000;
+    if(dienTich > 0.3) return 80000;
+    if(dienTich > 0.5) return 100000;
+    if(dienTich > 0.7) return 120000;
+    if(dienTich > 0.9) return 180000;
+    if(dienTich > 1.25) return 150000;
+    if(dienTich > 1.5) return 170000;
+    if(dienTich > 2) return 200000;
+    if(dienTich > 2.5) return 250000;
+
+
     if(dienTich > 0.3) return 80000;
     if(dienTich > 0.5) return 100000;
     if(dienTich > 0.7) return 120000;
